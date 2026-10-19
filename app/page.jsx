@@ -57,7 +57,7 @@ export default function Home() {
           flexWrap: "wrap",
           marginTop: "30px"
         }}>
-          <a href="#equipment" style={{
+         <a href="/equipment" style={{
             padding: "15px 25px",
             backgroundColor: "#c0c7cf",
             color: "#20252b",
