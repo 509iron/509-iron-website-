@@ -21,13 +21,17 @@ export default function Home() {
         padding: "25px",
         textAlign: "center"
       }}>
-        <h1 style={{
-          fontSize: "48px",
-          margin: "0",
-          letterSpacing: "3px"
-        }}>
-          509 <span style={{color: "#c0c7cf"}}>IRON</span>
-        </h1>
+       <img
+  src="/509-iron-logo.png"
+  alt="509 Iron Official Logo"
+  style={{
+    width: "340px",
+    maxWidth: "90%",
+    height: "auto",
+    display: "block",
+    margin: "0 auto"
+  }}
+/>
         <p>FARM EQUIPMENT MARKETPLACE</p>
       </header>
 
