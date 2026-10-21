@@ -65,31 +65,31 @@ export default function SellEquipment() {
           </select>
 
           <label>Year</label>
-          <input type="number" required
+          <input name="year" type="number" required
             placeholder="2022" style={field} />
 
           <label>Make</label>
-          <input required placeholder="John Deere"
+          <input name="make" required placeholder="John Deere"
             style={field} />
 
           <label>Model</label>
-          <input required placeholder="8R 370"
+          <input name="model" required placeholder="8R 370"
             style={field} />
 
           <label>Asking Price ($)</label>
-          <input type="number" min="1" required
+          <input name="asking_price" type="number" min="1" required
             placeholder="285000" style={field} />
 
           <label>Equipment Hours</label>
-          <input type="number" min="0"
+          <input name="equipment_hours" type="number" min="0"
             placeholder="1250" style={field} />
 
           <label>Equipment Location</label>
-          <input required
+          <input name="location" required
             placeholder="City, State" style={field} />
 
           <label>Equipment Description</label>
-          <textarea required rows="6"
+          <textarea name="description" required rows="6"
             placeholder="Describe condition, options, and repairs."
             style={field} />
 
@@ -97,6 +97,7 @@ export default function SellEquipment() {
           <p>Choose up to 10 photos (5 MB each).</p>
 
           <input
+            name="equipment_photos"
             type="file"
             accept="image/jpeg,image/png,image/webp"
             multiple
@@ -149,13 +150,13 @@ export default function SellEquipment() {
           <h2>Seller Contact Information</h2>
 
           <label>Seller Name</label>
-          <input required style={field} />
+          <input name="seller_name" required style={field} />
 
           <label>Email Address</label>
-          <input type="email" required style={field} />
+          <input name="seller_email" type="email" required style={field} />
 
           <label>Phone Number</label>
-          <input type="tel" required style={field} />
+          <input name="seller_phone" type="tel" required style={field} />
 
           <button type="button" disabled
             style={{
