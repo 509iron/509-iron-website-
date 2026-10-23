@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 export default function SellEquipment() {
   const [photos, setPhotos] = useState([]);
   const [previews, setPreviews] = useState([]);
+  const [submitting, setSubmitting] = useState(false);
+const [message, setMessage] = useState("");
 
   useEffect(() => {
     const urls = photos.map((file) =>
