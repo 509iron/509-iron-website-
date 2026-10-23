@@ -67,7 +67,7 @@ export default function Home() {
             BUY EQUIPMENT
           </a>
 
-          <a href="#sell" style={{
+          <a href="/sell" style={{
             padding: "15px 25px",
             border: "2px solid silver",
             color: "white",
