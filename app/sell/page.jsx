@@ -19,6 +19,58 @@ const [message, setMessage] = useState("");
     return () => urls.forEach(URL.revokeObjectURL);
   }, [photos]);
 
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setSubmitting(true);
+    setMessage("");
+
+    try {
+      const form = new FormData(event.currentTarget);
+
+      const listing = {
+        category: form.get("category"),
+        year: Number(form.get("year")),
+        make: form.get("make"),
+        model: form.get("model"),
+        asking_price: Number(form.get("asking_price")),
+        equipment_hours: form.get("equipment_hours")
+          ? Number(form.get("equipment_hours"))
+          : null,
+        location: form.get("location"),
+        description: form.get("description"),
+        seller_name: form.get("seller_name"),
+        seller_email: form.get("seller_email"),
+        seller_phone: form.get("seller_phone"),
+        status: "pending",
+      };
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/equipment_listings`,
+        {
+          method: "POST",
+          headers: {
+            apikey: process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
+            "Content-Type": "application/json",
+            Prefer: "return=minimal",
+          },
+          body: JSON.stringify(listing),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Submission failed. Please try again.");
+      }
+
+      setMessage("Your listing was submitted for approval!");
+      event.target.reset();
+      setPhotos([]);
+    } catch (error) {
+      setMessage(error.message);
+    } finally {
+      setSubmitting(false);
+    }
+  }
   const field = {
     display: "block",
     width: "100%",
@@ -54,9 +106,9 @@ const [message, setMessage] = useState("");
           upload photos below.
         </p>
 
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={handleSubmit}>
           <label>Equipment Category</label>
-          <select required style={field}>
+         <select name="category" required style={field}> 
             <option value="">Select Category</option>
             <option>Tractors</option>
             <option>Combines</option>
@@ -160,10 +212,10 @@ const [message, setMessage] = useState("");
           <label>Phone Number</label>
           <input name="seller_phone" type="tel" required style={field} />
 
-          <button type="button" disabled
+          <button type="submit" disabled={submitting}
             style={{
               width: "100%",
-              background: "#888",
+             background: submitting ? "#888" : "#252a30", 
               color: "white",
               border: "none",
               borderRadius: "6px",
@@ -171,17 +223,23 @@ const [message, setMessage] = useState("");
               fontSize: "17px"
             }}
           >
-            Submit Listing — Coming Soon
+            {submitting ? "Submitting..." : "Submit Listing"}
           </button>
 
-          <p style={{
-            fontSize: "13px",
-            color: "#666"
-          }}>
-            This form currently previews photos.
-            Submissions will be enabled after
-            secure storage is connected.
-          </p>
+          {message && (
+  <p style={{
+    fontSize: "15px",
+    color: message.includes("submitted") ? "green" : "red",
+    marginTop: "15px"
+  }}>
+    {message}
+  </p>
+)}
+
+<p style={{ fontSize: "13px", color: "#666" }}>
+  Equipment information will be submitted for approval.
+  Photo uploads are not yet saved.
+</p>
         </form>
       </div>
     </main>
