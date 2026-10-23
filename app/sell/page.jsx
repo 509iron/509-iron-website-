@@ -58,9 +58,16 @@ const [message, setMessage] = useState("");
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Submission failed. Please try again.");
-      }
+      
+if (!response.ok) {
+  const details = await response.json().catch(() => ({}));
+  throw new Error(
+    details.message ||
+    details.error ||
+    `Submission failed (HTTP ${response.status})`
+  );
+}
+
 
       setMessage("Your listing was submitted for approval!");
       event.target.reset();
